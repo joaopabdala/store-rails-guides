@@ -40,6 +40,4 @@ class SettingsTest < ActionDispatch::IntegrationTest
     get store_users_path
     assert_response :success
   end
-
-
 end

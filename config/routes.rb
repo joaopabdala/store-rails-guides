@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   root "products#index"
   resources :products do
+    resource :wishlist, only: [ :create ], module: :products
     resources :subscribers, only: [ :create ]
   end
   resource :unsubscribe, only: [ :show ]
@@ -25,8 +26,13 @@ Rails.application.routes.draw do
   namespace :store do
     resources :products
     resources :users
+    resources :wishlists
+    resources :subscribers
 
     root to: redirect("/store/products")
   end
 
+  resources :wishlists do
+    resources :wishlist_products, only: [ :update, :destroy ], module: :wishlists
+  end
 end
